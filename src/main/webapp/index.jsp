@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
   <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
   <link rel="stylesheet" type="text/css" href="resources/css/entities.css" />
+  <link rel="stylesheet" type="text/css" href="resources/css/tweets.css" />
 </head>
 
 <body>
@@ -22,9 +23,9 @@
         <ul id="menu">
           <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
           <li class="current"><a href="#">Home</a></li>
-          <li class=""><a href="#" onclick="loadBizEntities();">bizEntities</a></li>
-          <li class=""><a href="#">bizTweets</a></li>
-          <li class=""><a href="#">About Us</a></li>
+          <li class=""><a href="#" onclick="loadEntities();">bizEntities</a></li>
+          <li class=""><a href="#" onclick="loadTweets();">bizTweets</a></li>
+          <li class=""><a href="#">Mapping</a></li>
           <li class=""><a href="#">Contact Us</a></li>
         </ul>
       </div>
@@ -60,4 +61,5 @@
 <script src="<c:url value="resources/js/jquery-2.1.0.min.js" />"></script>
 <script src="<c:url value="resources/js/main.js" />"></script>
 <script src="<c:url value="resources/js/entities.js" />"></script>
+<script src="<c:url value="resources/js/tweets.js" />"></script>
 </html>

@@ -8,12 +8,11 @@ function loadEntities() {
 function success_loadEntities(response) {
 	var div_entities = "<div class='divTable wordwrap'>";
 	$.each(response, function (index, schema) {
-		entity = ($.parseJSON(schema));
-		if(index > 2 && entity._id.indexOf("field") == -1) {
-			div_entities = div_entities 
-			+ "<div class='divRow'><div class='divCell entity'>" +  entity._id.replace(/\;/g,' | ') 
-			+ " &nbsp;" + chooseFollowOrUnfollowLink(index, entity._id) + "</div></div>";
-		}
+		jsonSchema = $.parseJSON(schema);
+		div_entities = div_entities 
+		+ "<div class='divRow'><div class='divCell entity'>" +  jsonSchema.entity.replace(/\,/g,' | ') 
+		+ " &nbsp;" + chooseFollowOrUnfollowLink(index, jsonSchema.entity) + "</div></div>";
+		
 	});
 	div_entities = div_entities + "</div>";	
 	$("#content").html(div_entities);
@@ -21,9 +20,8 @@ function success_loadEntities(response) {
 
 function chooseFollowOrUnfollowLink(index, entity) {
 	var alreadyFollowing = false;
-	$.each(userDetails.details, function (index, detail) {
-		userJSON = $.parseJSON(detail);
-		if(userJSON.followingEntity == entity)
+	$.each(userDetails.followEntities, function (index, followingEntity) {
+		if(followingEntity == entity)
 			alreadyFollowing = true;
 	});
 	if(alreadyFollowing)

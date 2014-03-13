@@ -1,4 +1,4 @@
-var userDetails = {details: ""}
+var userDetails = {followEntities: ""}
 
 $(function(){
 	loadUserDetails();
@@ -30,9 +30,9 @@ function failureCallback(error) {
 }
 
 function loadUserDetails() {
-	restCall("GET", "/bizTweets/getUserDetails?user=tushar686@gmail.com", "", "json", "application/json", success_loadUserDetails);
+	restCall("GET", "/bizTweets/getUserFollowingEntities?user=tushar686@gmail.com", "", "json", "application/json", success_loadUserUserFollowingEntities);
 }
 
-function success_loadUserDetails(response) {
-	userDetails.details = response;
+function success_loadUserUserFollowingEntities(response) {
+	userDetails.followEntities = response;
 }

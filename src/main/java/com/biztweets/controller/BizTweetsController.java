@@ -1,5 +1,7 @@
 package com.biztweets.controller;
 
+import java.util.List;
+
 import javax.print.attribute.standard.Media;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +31,10 @@ public class BizTweetsController {
 		return bizTweetsService.getEntiities();  
     }
     
-    @RequestMapping(value = "/getUserDetails", method = RequestMethod.GET)  
+    @RequestMapping(value = "/getUserFollowingEntities", method = RequestMethod.GET)  
     @ResponseBody
-	public Iterable<String> follow(@RequestParam String user) {  
-    	return bizTweetsService.getUserDetails(user);
+	public List<String> getUserFollowingEntities(@RequestParam String user) {  
+    	return bizTweetsService.getUserFollowingEntities(user);
     }
     
     @RequestMapping(value = "/follow", method = RequestMethod.POST)  
@@ -45,6 +47,12 @@ public class BizTweetsController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
 	public void unfollow(@RequestParam String user, @RequestParam String unfollowingEntity) { 
     	bizTweetsService.deleteFollow(new Users(user, unfollowingEntity));
+    }
+    
+    @RequestMapping(value = "/getTweets", method = RequestMethod.GET)  
+    @ResponseBody
+	public List<Iterable<String>> getTweets(@RequestParam String user, @RequestParam int cursor) {  
+		return bizTweetsService.getTweets(user, cursor);  
     }
     
     /*@RequestMapping(value = "/getTweets", method = RequestMethod.GET)  
