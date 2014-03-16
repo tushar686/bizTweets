@@ -1,13 +1,15 @@
-var userDetails = {followEntities: ""}
+var global = {usersFollowEntities: "", entities: ""}
 
 $(function(){
+	hideProgressbar();
 	loadUserDetails();
+	loadEntities();
 	});
 
-function setHighlitedMenu(i) {
-	$('#menu li').each(function() {
-		if($(this).index() == i) $(this).addClass("current");
-		else $(this).removeClass("current");
+function setHighlitedMenu(inexOfClickedMenu) {
+	$('.nav li').each(function() {
+		if($(this).index() == inexOfClickedMenu) $(this).addClass("active");
+		else $(this).removeClass("active");
 	});
 }
 
@@ -34,5 +36,21 @@ function loadUserDetails() {
 }
 
 function success_loadUserUserFollowingEntities(response) {
-	userDetails.followEntities = response;
+	global.usersFollowEntities = response;
+}
+
+function loadEntities() {
+	restCall("GET", "/bizTweets/getEntities", "", "json", "application/json", success_loadEntities);
+}
+
+function success_loadEntities(response) {
+	global.entities = response;
+}
+
+function hideProgressbar() {
+	$("#progressbar").hide();
+}
+
+function showProgressbar() {
+	$("#progressbar").show();
 }

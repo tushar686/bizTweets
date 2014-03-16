@@ -3,7 +3,9 @@ package com.biztweets.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jongo.Find;
 import org.jongo.Jongo;
+import org.jongo.MongoCollection;
 
 import com.biztweets.formatter.JSONResultHandler;
 
@@ -62,7 +64,15 @@ public class Tweets {
 
 	
 	private Iterable<String> getTweetsForAnEntity(int numberOfTweetsToFetch, String entity) {
-		return jongo.getCollection(tweets).find("{" + buildQueryToFind_OnlyCollections_WhichIncludeFields(entity.split(delimiter)) +"}").skip(cursor*numberOfTweetsToFetch).limit(numberOfTweetsToFetch).map(new JSONResultHandler());
+		long count = jongo.getCollection(tweets).count("{" + buildQueryToFind_OnlyCollections_WhichIncludeFields(entity.split(delimiter)) +"}");
+		int skip = new Long(count - (cursor * numberOfTweetsToFetch)).intValue();
+		if(skip < 0) {
+			numberOfTweetsToFetch = numberOfTweetsToFetch + skip < 0 ? 0 : numberOfTweetsToFetch + skip;
+			skip = 0;
+		}
+		if(numberOfTweetsToFetch == 0)
+			return new ArrayList<String>();
+		return jongo.getCollection(tweets).find("{" + buildQueryToFind_OnlyCollections_WhichIncludeFields(entity.split(delimiter)) +"}").skip(skip).limit(numberOfTweetsToFetch).map(new JSONResultHandler());
 	}
 	
 	private String buildQueryToFind_OnlyCollections_WhichIncludeFields(String [] fields) {

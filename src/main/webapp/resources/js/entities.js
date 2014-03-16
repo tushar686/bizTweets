@@ -1,26 +1,38 @@
-var page = {id: ""};
+var entitiesPage = {id: ""}
 
-function loadEntities() {
+function showEntities() {
 	setHighlitedMenu(1);
-	restCall("GET", "/bizTweets/getEntities", "", "json", "application/json", success_loadEntities);
+	$("#content").html(generateTableOfEntities());
 }
 
-function success_loadEntities(response) {
-	var div_entities = "<div class='divTable wordwrap'>";
-	$.each(response, function (index, schema) {
+function generateTableOfEntities() {
+	var tableOfEntities = "<table class='table table-striped table-hover'>";
+	tableOfEntities = tableOfEntities + "<thead><tr><th colspan=3 class='danger'>Entities</th></tr></thead><tbody>";
+	
+	tableOfEntities = tableOfEntities + iterateThroughAllEntities();
+	
+	return tableOfEntities = tableOfEntities + "</tbody></table>";
+	
+}
+
+function iterateThroughAllEntities() {
+	var entityRows = "";
+	$.each(global.entities, function (index, schema) {
 		jsonSchema = $.parseJSON(schema);
-		div_entities = div_entities 
-		+ "<div class='divRow'><div class='divCell entity'>" +  jsonSchema.entity.replace(/\,/g,' | ') 
-		+ " &nbsp;" + chooseFollowOrUnfollowLink(index, jsonSchema.entity) + "</div></div>";
+		entityRows = entityRows 
+		+ "<tr>"
+		+ "<td>" + (index+1) + "</td>"
+		+ "<td>" +  jsonSchema.entity.replace(/\,/g,' | ')  + "</td>"
+		+ "<td>" + chooseFollowOrUnfollowLink(index, jsonSchema.entity) + "</td>"
+		+ "</tr>";
 		
 	});
-	div_entities = div_entities + "</div>";	
-	$("#content").html(div_entities);
+	return entityRows;
 }
 
 function chooseFollowOrUnfollowLink(index, entity) {
 	var alreadyFollowing = false;
-	$.each(userDetails.followEntities, function (index, followingEntity) {
+	$.each(global.usersFollowEntities, function (index, followingEntity) {
 		if(followingEntity == entity)
 			alreadyFollowing = true;
 	});
@@ -31,21 +43,21 @@ function chooseFollowOrUnfollowLink(index, entity) {
 
 function follow(id) {
 	restCall("POST", "/bizTweets/follow", "{\"followingEntity\": \""+$("#"+id).attr("class")+"\",\"user\": \"tushar686@gmail.com\"}", "json", "application/json", "", success_follow);
-	page.id = id;
+	entitiesPage.id = id;
 }
 
 function success_follow(response) {
 	if(response.status == 201)
-		$("#" + page.id).text("Unfollow");
+		$("#" + entitiesPage.id).text("Unfollow");
 }
 
 function unfollow(id) {
 	restCall("DELETE", "/bizTweets/unfollow?user=tushar686@gmail.com&unfollowingEntity="+$("#"+id).attr("class"), "", "json", "application/json", "", success_unfollow);
-	page.id = id;
+	entitiesPage.id = id;
 }
 
 function success_unfollow(response) {
 	if(response.status == 204)
-		$("#" + page.id).text("Follow");
+		$("#" + entitiesPage.id).text("Follow");
 }
 
