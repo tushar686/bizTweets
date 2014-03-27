@@ -1,5 +1,13 @@
 var entitiesPage = {id: ""}
 
+function loadEntities() {
+	restCall("GET", "/bizTweets/getEntities", "", "json", "application/json", success_loadEntities);
+}
+
+function success_loadEntities(response) {
+	global.entities = response;
+}
+
 function showEntities() {
 	setHighlitedMenu(1);
 	$("#content").html(generateTableOfEntities());

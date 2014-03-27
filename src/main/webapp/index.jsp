@@ -17,12 +17,13 @@
   <link rel="stylesheet" type="text/css" href="resources/css/mappings.css" />
   <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.10.4.custom.min.css" />
   <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="resources/css/bootstrap-dialog.min.css" />
    
 </head>
 
 <body>
   <jsp:include page="header.jsp" />
-  <div class="progress progress-striped active" id="progressbar">
+  <div class="progress progress-striped active" id="mainProgressbar">
   	<div class="progress-bar" style="width: 100%"></div>
   </div>
   <div id="content"></div>
@@ -31,8 +32,11 @@
 <script src="resources/js/jquery-2.1.0.min.js"></script>
 <script src="resources/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/bootstrap-dialog.min.js"></script>
 <script src="resources/js/main.js"></script>
 <script src="resources/js/entities.js"></script>
 <script src="resources/js/tweets.js"></script>
 <script src="resources/js/mappings.js"></script>
+<script src="resources/js/users.js"></script>
+<script src="resources/js/search.js"></script>
 </html>

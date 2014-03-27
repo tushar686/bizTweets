@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.biztweets.model.Follow;
+import com.biztweets.model.Tweets;
 import com.biztweets.model.Users;
 import com.biztweets.service.BizTweetsService;
    
@@ -31,9 +33,9 @@ public class BizTweetsController {
 		return bizTweetsService.getEntiities();  
     }
     
-    @RequestMapping(value = "/getUserFollowingEntities", method = RequestMethod.GET)  
+    @RequestMapping(value = "/getUserFollowing", method = RequestMethod.GET)  
     @ResponseBody
-	public List<String> getUserFollowingEntities(@RequestParam String user) {  
+	public List<Users> getUserFollowingEntities(@RequestParam String user) {  
     	return bizTweetsService.getUserFollowingEntities(user);
     }
     
@@ -43,34 +45,22 @@ public class BizTweetsController {
     	bizTweetsService.saveFollow(follow);
     }
     
-    @RequestMapping(value = "/unfollow", method = RequestMethod.DELETE)  
+    /*@RequestMapping(value = "/unfollow", method = RequestMethod.DELETE)  
     @ResponseStatus(HttpStatus.NO_CONTENT)
 	public void unfollow(@RequestParam String user, @RequestParam String unfollowingEntity) { 
     	bizTweetsService.deleteFollow(new Users(user, unfollowingEntity));
+    }*/
+       
+    @RequestMapping(value = "/searchTweets", method = RequestMethod.GET)  
+    @ResponseBody
+	public List<Iterable<Tweets>> searchTweets(@RequestParam String user, @RequestParam String searchString, @RequestParam int cursor, @RequestParam String queryType) {  
+		return bizTweetsService.searchTweets(user, cursor, searchString, queryType);  
     }
     
     @RequestMapping(value = "/getTweets", method = RequestMethod.GET)  
     @ResponseBody
-	public List<Iterable<String>> getTweets(@RequestParam String user, @RequestParam int cursor) {  
+	public List<Iterable<Tweets>> getTweets(@RequestParam String user, @RequestParam int cursor) {  
 		return bizTweetsService.getTweets(user, cursor);  
     }
-    
-    /*@RequestMapping(value = "/getTweets", method = RequestMethod.GET)  
-	public String getTweets(ModelMap model, @RequestParam(value = "cursor") int cursor, @RequestParam(value = "field") String field) {  
-    	DB db;
-		try {
-			db = new MongoClient().getDB("bizTweets");
-			Jongo jongo = new Jongo(db);
-			MongoCollection entities = jongo.getCollection("entities");
-			Iterable<String> documentsAsJson = entities.find().skip(cursor).limit(10).map(new JSONResultHandler());
-			
-			model.addAttribute("bizTweets", documentsAsJson);
-			model.addAttribute("cursor", cursor+10); 
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	return "index";  
-    }*/
-    
+        
 }

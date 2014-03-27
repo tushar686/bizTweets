@@ -1,0 +1,13 @@
+db.tweets.ensureIndex( { "entityName": 1, "metadata.key" : 1, "metadata.value" : 1, "insertTime" : -1});
+db.tweets.ensureIndex( { "entityName": 1, "metadata.key" : 1, "insertTime" : -1});
+db.tweets.ensureIndex( { "entityName": 1, "metadata.value" : 1, "insertTime" : -1});
+db.tweets.ensureIndex( {"metadata.key" : 1, "metadata.value": 1, "insertTime" : -1});
+db.tweets.ensureIndex( { "entityName": 1, "insertTime" : -1});
+db.tweets.ensureIndex( {"metadata.key" : 1, "insertTime" : -1});
+db.tweets.ensureIndex( {"metadata.value" : 1, "insertTime" : -1});
+db.tweets.ensureIndex( { "entityName": 1});
+db.tweets.ensureIndex( { "metadata.key": 1});
+db.tweets.ensureIndex( { "metadata.value": 1});
+db.tweets.ensureIndex( { "insertTime": -1});
+
+db.tweets.find({metadata: {$elemMatch: {"key": "gender", "value": "M"} } }).sort({insertTime: -1})

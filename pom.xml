@@ -68,8 +68,19 @@
 		    <version>1.9.12</version>
 		</dependency>
 		
+		<dependency>
+  			 <groupId>org.apache.httpcomponents</groupId>
+ 			 <artifactId>httpclient</artifactId>
+			 <version>4.3.3</version>
+		</dependency>
+		
+		<dependency>
+    		 <groupId>org.elasticsearch</groupId>
+   			 <artifactId>elasticsearch</artifactId>
+   			 <version>1.0.1</version>
+		</dependency>
+		
 	</dependencies>
-	
 	<build>
 		<plugins>
 			<plugin>
@@ -81,6 +92,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>bizTweets</finalName>
 	</build>
 </project>

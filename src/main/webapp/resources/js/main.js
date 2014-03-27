@@ -1,9 +1,9 @@
 var global = {usersFollowEntities: "", entities: ""}
 
 $(function(){
-	hideProgressbar();
-	loadUserDetails();
-	loadEntities();
+	loadTweets();
+	//loadUserDetails();
+	//loadEntities();
 	});
 
 function setHighlitedMenu(inexOfClickedMenu) {
@@ -31,26 +31,10 @@ function failureCallback(error) {
 	console.log(error);
 }
 
-function loadUserDetails() {
-	restCall("GET", "/bizTweets/getUserFollowingEntities?user=tushar686@gmail.com", "", "json", "application/json", success_loadUserUserFollowingEntities);
-}
-
-function success_loadUserUserFollowingEntities(response) {
-	global.usersFollowEntities = response;
-}
-
-function loadEntities() {
-	restCall("GET", "/bizTweets/getEntities", "", "json", "application/json", success_loadEntities);
-}
-
-function success_loadEntities(response) {
-	global.entities = response;
-}
-
 function hideProgressbar() {
-	$("#progressbar").hide();
+	$("#mainProgressbar").hide();
 }
 
 function showProgressbar() {
-	$("#progressbar").show();
+	$("#mainProgressbar").show();
 }

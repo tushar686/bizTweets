@@ -9,15 +9,19 @@
   </div>
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
-     <li class="active"><a href="#">Home</a></li>
-     <li><a href="#" onclick="showEntities();">bizEntities</a></li>
-     <li><a href="#" onclick="loadTweets();">bizTweets</a></li>
-     <li><a href="#" onClick="loadMappings();">Mapping</a></li>
-     <li><a href="#">Contact Us</a></li>
-     <li><a href="#">About Us</a></li>
+     <li><a href="#" onClick="loadTweets();">bizTweets</a></li>
+     <li><a href="#" >Following</a></li>
+     <li><a href="#" onClick="showEntities();">bizEntities</a></li>
     </ul>
-    <form class="navbar-form navbar-left">
-      <input type="text" class="form-control col-lg-8" placeholder="Search">
-    </form>
+    <div class="col-sm-3 col-md-3 pull-left">
+        <div class="navbar-form">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button" onClick="freshSearchTweets();"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        </div>
+    </div>    
   </div>
 </div>
